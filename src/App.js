@@ -15,6 +15,7 @@ import Dashboard from "./pages/dashboard";
 // import Calender from "./pages/calender";
 // import Geography from "./pages/geography"; 
  import AppSidebar from "./pages/global/AppSidebar";
+
  
 function App() {
   const [colorMode, theme] = useMode();
@@ -25,20 +26,21 @@ function App() {
         <CssBaseline />
        <div className="app">
           <AppSidebar/>
+          {/* <Side/> */}
           <main className="content">
             <AppTopbar/>
             <Routes>
               <Route path="/" element={<Dashboard/>} />
-              {/* <Route path="/team" element={<Team/>} />
-              <Route path="/contacts" element={<Contacts/>} />
-              <Route path="/invoices" element={<Invoices/>} />
-              <Route path="/form" element={<Form/>} />
-              <Route path="/bar" element={<Bar/>} />
-              <Route path="/pie" element={<Pie/>} />
-              <Route path="/line" element={<Line/>} />
-              <Route path="/faq" element={<FAQ/>} />
-              <Route path="/geography" element={<Geography/>} />
-              <Route path="/calendar" element={<Calender/>} /> */}
+              {/* <Route path="/team" element={<Team/>} /> */}
+              {/* <Route path="/contacts" element={<Contacts/>} /> */}
+              {/* <Route path="/invoices" element={<Invoices/>} /> */}
+              {/* <Route path="/form" element={<Form/>} /> */}
+              {/* <Route path="/bar" element={<Bar/>} /> */}
+              {/* <Route path="/pie" element={<Pie/>} /> */}
+              {/* <Route path="/line" element={<Line/>} /> */}
+              {/* <Route path="/faq" element={<FAQ/>} /> */}
+              {/* <Route path="/geography" element={<Geography/>} /> */}
+              {/* <Route path="/calendar" element={<Calender/>} /> */}
             
             </Routes>
           </main>
