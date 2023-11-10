@@ -417,6 +417,12 @@ export const mockPieData = [
     color: "hsl(291, 70%, 50%)",
   },
   {
+    id: "javascript",
+    label: "javascript",
+    value: 239,
+    color: "hsl(104, 70%, 50%)",
+    },
+  {
     id: "lisp",
     label: "lisp",
     value: 503,
