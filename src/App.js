@@ -11,6 +11,7 @@ import Form from "./pages/form";
 import Pie from "./pages/pie";
 import Line from "./pages/line";
 import FAQ from "./pages/faq";
+import Login from "./pages/auth/login";
 // import Calender from "./pages/calender";
 import Geography from "./pages/geography"; 
  import AppSidebar from "./pages/global/AppSidebar";
@@ -25,12 +26,14 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
        <div className="app">
-          <AppSidebar/>
+          <Login/>
+          {/* <AppSidebar/> */}
           {/* <Side/> */}
-          <main className="content">
+          {/* <main className="content">
             <AppTopbar/>
             <Routes>
-              <Route path="/" element={<Dashboard/>} />
+              {/* <Route path="/" element={<Dashboard/>} /> */}
+              {/* <Route path="/" element={<Login/>} /> 
               <Route path="/team" element={<Team/>} />
               <Route path="/contacts" element={<Contacts/>} />
               <Route path="/form" element={<Form/>} />
@@ -38,11 +41,12 @@ function App() {
               <Route path="/pie" element={<Pie/>} />
               <Route path="/line" element={<Line/>} />
               <Route path="/faq" element={<FAQ/>} />
-              <Route path="/geography" element={<Geography/>} />
+              <Route path="/geography" element={<Geography/>} /> */}
               {/* <Route path="/calendar" element={<Calender/>} /> */}
             
-            </Routes>
-          </main>
+            {/* </Routes>
+          </main> */} 
+
        </div>
        </ThemeProvider>
     </ColorModeContext.Provider>
