@@ -1,51 +1,36 @@
 
-import { Routes, Route } from "react-router-dom";
-import AppTopbar from "./pages/global/AppTopbar";
+// import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { ColorModeContext, useMode} from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Dashboard from "./pages/dashboard";
-import Team from "./pages/team";
-import Contacts from "./pages/contacts";
-import Bar from "./pages/bar";
-import Form from "./pages/form";
-import Pie from "./pages/pie";
-import Line from "./pages/line";
-import FAQ from "./pages/faq";
 import Login from "./pages/auth/login";
-// import Calender from "./pages/calender";
-import Geography from "./pages/geography"; 
- import AppSidebar from "./pages/global/AppSidebar";
+import Dashboard from './pages/dashboard';
+import Home from './pages/home';
 
  
 function App() {
   const [colorMode, theme] = useMode();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
+   const handleLogin = () => {
+    // Perform authentication logic here (e.g., check credentials, API call)
+    // For simplicity, let's assume a successful login after clicking a "Login" button.
+    setIsLoggedIn(true);
+  };
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
        <div className="app">
-          <Login/>
-          {/* <AppSidebar/> */}
-          {/* <Side/> */}
-          {/* <main className="content">
-            <AppTopbar/>
+         <main className="content">
+           
             <Routes>
-              {/* <Route path="/" element={<Dashboard/>} /> */}
-              {/* <Route path="/" element={<Login/>} /> 
-              <Route path="/team" element={<Team/>} />
-              <Route path="/contacts" element={<Contacts/>} />
-              <Route path="/form" element={<Form/>} />
-              <Route path="/bar" element={<Bar/>} />
-              <Route path="/pie" element={<Pie/>} />
-              <Route path="/line" element={<Line/>} />
-              <Route path="/faq" element={<FAQ/>} />
-              <Route path="/geography" element={<Geography/>} /> */}
-              {/* <Route path="/calendar" element={<Calender/>} /> */}
-            
-            {/* </Routes>
-          </main> */} 
+               <Route path="/home" element={<Home />} />
+               <Route path="/" element={<Login />} />
+            </Routes>
+          </main>  
 
        </div>
        </ThemeProvider>

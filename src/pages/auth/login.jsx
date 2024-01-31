@@ -1,159 +1,209 @@
-import React from 'react'
-import { tokens } from "../../theme"
-import { Formik } from "formik"
-import * as Yup from "yup"
-import { TextField , Paper, Avatar, Typography, Box, useTheme, Button, IconButton } from '@mui/material'
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { useFormik } from "formik";
+import { tokens } from "../../theme";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LoginIcon from '@mui/icons-material/Login';
-import InputAdornment from '@mui/material/InputAdornment';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import PasswordIcon from '@mui/icons-material/Password';
-import KeyIcon from '@mui/icons-material/Key';
+import LoginIcon from "@mui/icons-material/Login";
+import InputAdornment from "@mui/material/InputAdornment";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import KeyIcon from "@mui/icons-material/Key";
+import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import Home from "../home/index"
 
-const initialValues = {
-  email: "",
-  password: "", 
-}
+import {
+  TextField,
+  Paper,
+  Avatar,
+  Typography,
+  Box,
+  useTheme,
+  Button,
+} from "@mui/material";
+import Dashboard from "../dashboard";
 
 const passwordRegex =
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-const userSchema = Yup.object().shape({
-  email: Yup.string().email("invalid email").required("Email is required"),
-  password: Yup.string().matches(passwordRegex, "Password not valid").required("Password is required"),
-})
+const validationSchema = Yup.object({
+  password: Yup.string()
+    //.matches(passwordRegex, "Password not valid")
+    .required("Password is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
 
 const Login = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const [showPassword, setShowPassword] = React.useState(false);
   
-
-    const handleFormSubmit = (values) => {
-      console.log(values)
-    }
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      email: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(JSON.stringify(values, null, 2));
+      //alert(JSON.stringify(values, null, 2));
+      <Home/>; 
+    },
+  });
 
   return (
-    <Box sx={{
-            margin: "auto",
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}>
-        <Paper 
-        elevation={30}
+    <Box
+      sx={{
+        margin: "auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        mt: "80px"
+      }}
+    >
+      <Paper
+        // elevation={30}
         sx={{
-            width: '250px',
-            height: '50vh',
-            padding: '20px',
-            borderRadius: '16px',
-            backgroundColor: colors.grey[300],
-        }}>
-           <Box 
-           align="center"
-           justifyContent="space-between" 
-           alignItems="center" 
-           mb="20px">
-             <Avatar 
-                sx={{
-                    background: colors.blueAccent[700],
-                }} >
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography 
-               variant="h5" 
-               sx={{ 
-                m: "10px 0 0 0",
-                fontWeight: "bold",
-                color: colors.grey[800],
-                fontSize: "25px",
-
-             }}
-               >
-                Login
-            </Typography>
-
-           <Formik 
-             onSubmit={handleFormSubmit}
-             initialValues={initialValues}
-             validationSchema={userSchema}
+          width: "400px",
+          height: "55vh",
+          padding: "20px",
+          borderRadius: "16px",
+          backgroundColor: colors.grey[300],
+        }}
+      >
+        <Box
+          align="center"
+          justifyContent="space-between"
+          alignItems="center"
+          mb="20px"
         >
-            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-                <form onSubmit={handleSubmit}>
-                    <TextField 
-                        fullwidth
-                        required
-                        variant="outlined"
-                        type="text"
-                        label="Email"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.email}
-                        name="email"
-                        error={!!touched.email && !!errors.email}
-                        helperText={touched.email && errors.email}
-                        sx={{ mt: 2 }}
-                        InputProps={{
-                            startAdornment: (
-                              <InputAdornment 
-                                  position="start">
-                                <ContactMailIcon 
-                                    sx={{
-                                      backgroundColor: colors.blueAccent[700],
-                                      fontSize: "small"
-                                    }}/>
-                              </InputAdornment>
-                            ),
-                          }}
-                    />
-
-                    <TextField 
-                        fullwidth
-                        required
-                        variant="outlined"
-                        type={showPassword ? 'text' : 'password'}
-                        label="password"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.password}
-                        name="password"
-                        error={!!touched.password && !!errors.password}
-                        helperText={touched.password && errors.password}
-                        sx={{ mt: 2 }}
-                        InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <KeyIcon 
-                                 sx={{
-                                      backgroundColor: colors.blueAccent[700],
-                                      fontSize: "small"
-                                    }} />
-                              </InputAdornment>
-                            ),
-                          }}
-
-                    />
-                </form>
-            ) }
-
-        </Formik>
-
-        <Button 
-            type="submit" 
-            variant="contained"
-            startIcon={<LoginIcon />}
+          <Avatar
             sx={{
+              background: colors.blueAccent[700],
+            }}
+          >
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography
+            variant="h5"
+            sx={{
+              m: "10px 0 0 0",
+              fontWeight: "bold",
+              color: colors.grey[800],
+              fontSize: "25px",
+            }}
+          >
+            Login
+          </Typography>
+
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              id="email"
+              name="email"
+              type="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              InputLabelProps={{
+                style: { fontSize: 16, color: colors.blueAccent[600] },
+              }}
+              inputProps={{
+                style: {
+                  fontSize: 22,
+                  //   fontWeight: "bold",
+                  color: colors.grey[800],
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <ContactMailIcon
+                      sx={{
+                        // backgroundColor: colors.grey[200],
+                        fontSize: "30px",
+                        fontWeight: "bold",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              label="Password"
+              variant="outlined"
+              type="password"
+              fullWidth
+              margin="normal"
+              id="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              InputLabelProps={{
+                style: { fontSize: 16, color: colors.blueAccent[600] },
+              }}
+              inputProps={{
+                style: {
+                  fontSize: 22,
+                  fontWeight: "bold",
+                  color: colors.grey[700],
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <KeyIcon
+                      sx={{
+                        fontSize: "30px",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              startIcon={<LoginIcon />}
+              sx={{
                 mt: 2,
                 backgroundColor: colors.blueAccent[700],
-            }}
-        >
-            Login
-        </Button>
-           </Box>
-        </Paper>
+              }}
+            >
+              Submit
+            </Button>
+            <Typography
+              sx={{
+                mt: 2,
+                color: colors.blueAccent[700],
+              }}
+            >
+              <Link href="#">Forgot password?</Link>
+            </Typography>
+          </form>
+
+          {/* Todo */}
+          {/* ADD Account Logo */}
+        </Box>
+      </Paper>
     </Box>
-  )
-}
+  );
+};
 
 export default Login;
